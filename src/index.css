@@ -139,6 +139,19 @@ body {
     min-height: 44px;
     min-width: 44px;
   }
+
+  /* Header specific styles for better visibility */
+  .header-solid {
+    background-color: white;
+    border-bottom: 1px solid hsl(var(--border));
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  }
+
+  .dark .header-solid {
+    background-color: hsl(222.2 84% 4.9%);
+    border-bottom: 1px solid hsl(var(--border));
+    box-shadow: 0 1px 3px 0 rgb(255 255 255 / 0.1), 0 1px 2px -1px rgb(255 255 255 / 0.1);
+  }
 }
 
 
