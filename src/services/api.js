@@ -1,12 +1,9 @@
 import axios from "axios";
 import Cookies from "js-cookie";
+import { getApiUrl } from "@/utils/apiUrl";
 
 // Environment-aware API base URL
-const API_BASE_URL =
-  import.meta.env.VITE_API_URL ||
-  (import.meta.env.DEV
-    ? "http://localhost:3000"
-    : "https://voice-ai-generator-backend.onrender.com");
+const API_BASE_URL = getApiUrl();
 
 // Create axios instance
 const api = axios.create({

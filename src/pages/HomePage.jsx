@@ -131,7 +131,7 @@ export function HomePage() {
 
         {/* Features Grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-4xl mx-auto mb-8 sm:mb-12">
-          <div className="bg-white dark:bg-gray-700 p-4 sm:p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
+          <div className="bg-background p-4 sm:p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
             <Zap className="h-6 w-6 sm:h-8 sm:w-8 text-yellow-500 mx-auto mb-3" />
             <h3 className="font-semibold mb-2 text-sm sm:text-base">
               {t("lightningFast")}
@@ -140,7 +140,7 @@ export function HomePage() {
               {t("lightningFastDesc")}
             </p>
           </div>
-          <div className="bg-white dark:bg-gray-700 p-4 sm:p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
+          <div className="bg-background p-4 sm:p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
             <Target className="h-6 w-6 sm:h-8 sm:w-8 text-green-500 mx-auto mb-3" />
             <h3 className="font-semibold mb-2 text-sm sm:text-base">
               {t("voiceOptimized")}
@@ -149,7 +149,7 @@ export function HomePage() {
               {t("voiceOptimizedDesc")}
             </p>
           </div>
-          <div className="bg-white dark:bg-gray-700 p-4 sm:p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 sm:col-span-2 lg:col-span-1">
+          <div className="bg-background p-4 sm:p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 sm:col-span-2 lg:col-span-1">
             <Globe className="h-6 w-6 sm:h-8 sm:w-8 text-blue-500 mx-auto mb-3" />
             <h3 className="font-semibold mb-2 text-sm sm:text-base">
               {t("nepalFocused")}

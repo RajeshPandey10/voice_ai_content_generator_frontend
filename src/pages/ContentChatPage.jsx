@@ -9,6 +9,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { useAuth } from "@/contexts/AuthContext";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { getApiUrl } from "@/utils/apiUrl";
 import {
   ArrowLeft,
   Send,
@@ -82,9 +83,7 @@ export function ContentChatPage() {
 
     try {
       const token = Cookies.get("accessToken");
-      const apiUrl =
-        import.meta.env.VITE_API_URL ||
-        "https://voice-ai-generator-backend.onrender.com";
+      const apiUrl = getApiUrl();
       const response = await fetch(`${apiUrl}/api/content/modify`, {
         method: "POST",
         headers: {
@@ -155,9 +154,7 @@ export function ContentChatPage() {
 
     try {
       const token = Cookies.get("accessToken");
-      const apiUrl =
-        import.meta.env.VITE_API_URL ||
-        "https://voice-ai-generator-backend.onrender.com";
+      const apiUrl = getApiUrl();
       const response = await fetch(`${apiUrl}/api/audio/generate`, {
         method: "POST",
         headers: {
@@ -211,9 +208,7 @@ export function ContentChatPage() {
   const handleDownloadAudio = () => {
     if (currentAudio?.audioFile) {
       const link = document.createElement("a");
-      const apiUrl =
-        import.meta.env.VITE_API_URL ||
-        "https://voice-ai-generator-backend.onrender.com";
+      const apiUrl = getApiUrl();
       const audioUrl = currentAudio.audioFile.startsWith("http")
         ? currentAudio.audioFile
         : `${apiUrl}${currentAudio.audioFile}`;

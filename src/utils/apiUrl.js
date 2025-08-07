@@ -1,9 +1,18 @@
 // Utility function to get the API base URL
 export const getApiUrl = () => {
-  return (
-    import.meta.env.VITE_API_URL ||
-    "https://voice-ai-generator-backend.onrender.com"
-  );
+  const envUrl = import.meta.env.VITE_API_URL;
+  const fallbackUrl = "https://voice-ai-generator-backend.onrender.com";
+
+  // Always use production URL unless explicitly in development
+  const apiUrl = envUrl || fallbackUrl;
+
+  // Safety check - never allow localhost in production
+  if (apiUrl.includes("localhost") && import.meta.env.PROD) {
+    console.error("🚨 CRITICAL: Localhost URL detected in production!");
+    return fallbackUrl;
+  }
+
+  return apiUrl;
 };
 
 // Utility function to construct full audio URL

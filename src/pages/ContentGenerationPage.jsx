@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useAuth } from "@/contexts/AuthContext";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { getApiUrl } from "@/utils/apiUrl";
 import { ArrowLeft, Download, Share, Edit } from "lucide-react";
 import Cookies from "js-cookie";
 
@@ -57,9 +58,7 @@ export function ContentGenerationPage() {
 
     try {
       const token = Cookies.get("accessToken");
-      const apiUrl =
-        import.meta.env.VITE_API_URL ||
-        "https://voice-ai-generator-backend.onrender.com";
+      const apiUrl = getApiUrl();
       const response = await fetch(`${apiUrl}/api/audio/generate`, {
         method: "POST",
         headers: {

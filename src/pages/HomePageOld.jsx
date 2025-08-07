@@ -8,6 +8,7 @@ import { ErrorCard } from "@/components/error-card";
 import { Sparkles, Zap, Target, Globe } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { contentAPI } from "@/services/api";
+import { getApiUrl } from "@/utils/apiUrl";
 import Cookies from "js-cookie";
 
 export function HomePage() {
@@ -101,9 +102,7 @@ export function HomePage() {
 
     try {
       const token = Cookies.get("accessToken");
-      const apiUrl =
-        import.meta.env.VITE_API_URL ||
-        "https://voice-ai-generator-backend.onrender.com";
+      const apiUrl = getApiUrl();
       const response = await fetch(`${apiUrl}/api/audio/generate`, {
         method: "POST",
         headers: {

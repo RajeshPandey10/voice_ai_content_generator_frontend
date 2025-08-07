@@ -10,6 +10,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/AuthContext";
+import { getApiUrl } from "@/utils/apiUrl";
+import { toast } from "sonner";
 import { Eye, EyeOff, Mail, Lock, User, Chrome } from "lucide-react";
 
 export function AuthForm({ onSuccess }) {
@@ -56,27 +58,19 @@ export function AuthForm({ onSuccess }) {
   };
 
   const handleGoogleLogin = () => {
-    const envApiUrl = import.meta.env.VITE_API_URL;
-    const fallbackUrl = "https://voice-ai-generator-backend.onrender.com";
-    const apiUrl = envApiUrl || fallbackUrl;
+    const apiUrl = getApiUrl();
     const googleAuthUrl = `${apiUrl}/auth/google`;
 
-    console.log("🔍 Debug Info:");
-    console.log("Environment VITE_API_URL:", envApiUrl);
-    console.log("Fallback URL:", fallbackUrl);
-    console.log("Final API URL:", apiUrl);
-    console.log("Google Auth URL:", googleAuthUrl);
+    console.log("� Google Auth URL:", googleAuthUrl);
 
-    // Double check we're not using localhost
-    if (googleAuthUrl.includes("localhost")) {
-      console.error("❌ ERROR: Still using localhost URL!");
-      alert(
-        "Configuration Error: Still using localhost. Please restart the development server."
-      );
+    // Safety check - ensure no localhost in production
+    if (googleAuthUrl.includes("localhost") && import.meta.env.PROD) {
+      console.error("❌ CRITICAL: Localhost URL in production!");
+      toast.error("Configuration Error: Invalid URL configuration detected.");
       return;
     }
 
-    console.log("✅ Redirecting to production backend");
+    console.log("✅ Redirecting to backend auth");
     window.location.href = googleAuthUrl;
   };
 

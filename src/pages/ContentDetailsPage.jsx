@@ -7,6 +7,7 @@ import { ContentChatModifier } from "@/components/content-chat-modifier";
 import { ImprovedAudioPlayer } from "@/components/improved-audio-player";
 import { useAuth } from "@/contexts/AuthContext";
 import { api } from "@/services/api";
+import { getApiUrl } from "@/utils/apiUrl";
 import { toast } from "sonner";
 import {
   ArrowLeft,
@@ -117,9 +118,7 @@ export function ContentDetailsPage() {
 
     try {
       const token = Cookies.get("accessToken");
-      const apiUrl =
-        import.meta.env.VITE_API_URL ||
-        "https://voice-ai-generator-backend.onrender.com";
+      const apiUrl = getApiUrl();
       const response = await fetch(`${apiUrl}/api/audio/generate`, {
         method: "POST",
         headers: {
@@ -171,9 +170,7 @@ export function ContentDetailsPage() {
       audio.pause();
       setIsPlaying(false);
     } else {
-      const apiUrl =
-        import.meta.env.VITE_API_URL ||
-        "https://voice-ai-generator-backend.onrender.com";
+      const apiUrl = getApiUrl();
       const audioUrl = audioResult.url.startsWith("http")
         ? audioResult.url
         : `${apiUrl}${audioResult.url}`;
@@ -219,9 +216,7 @@ export function ContentDetailsPage() {
   const handleDownloadAudio = () => {
     if (audioResult?.url) {
       const a = document.createElement("a");
-      const apiUrl =
-        import.meta.env.VITE_API_URL ||
-        "https://voice-ai-generator-backend.onrender.com";
+      const apiUrl = getApiUrl();
       const audioUrl = audioResult.url.startsWith("http")
         ? audioResult.url
         : `${apiUrl}${audioResult.url}`;
