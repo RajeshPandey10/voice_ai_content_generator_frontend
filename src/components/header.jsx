@@ -140,9 +140,9 @@ export function Header() {
             title={`Current theme: ${theme} - Click to switch`}
           >
             {effectiveTheme === "dark" ? (
-              <Sun className="h-3 w-3 sm:h-4 sm:w-4" />
+              <Sun className="h-4 w-4 sm:h-5 sm:w-5" />
             ) : (
-              <Moon className="h-3 w-3 sm:h-4 sm:w-4" />
+              <Moon className="h-4 w-4 sm:h-5 sm:w-5" />
             )}
           </Button>
 
@@ -155,7 +155,7 @@ export function Header() {
                   className="flex items-center gap-1 sm:gap-2 h-8 sm:h-10 px-2 sm:px-3"
                 >
                   <div className="flex items-center justify-center w-6 h-6 sm:w-8 sm:h-8 bg-primary/10 rounded-full">
-                    <User className="h-3 w-3 sm:h-4 sm:w-4" />
+                    <User className="h-4 w-4 sm:h-5 sm:w-5" />
                   </div>
                   <div className="hidden md:flex flex-col items-start">
                     <div className="flex items-center gap-2">
@@ -229,7 +229,7 @@ export function Header() {
                 size="md"
                 className="lg:hidden h-8 w-8 sm:h-9 sm:w-9"
               >
-                <Menu className="h-4 w-4 sm:h-5 sm:w-5" />
+                <Menu className="h-5 w-5 sm:h-6 sm:w-6" />
               </Button>
             </SheetTrigger>
             <SheetContent
@@ -245,8 +245,8 @@ export function Header() {
                 {user && (
                   <div className="pb-4 border-b">
                     <div className="flex items-center gap-3 mb-3">
-                      <div className="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 bg-primary/10 rounded-full">
-                        <User className="h-4 w-4 sm:h-5 sm:w-5" />
+                      <div className="flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 bg-primary/10 rounded-full">
+                        <User className="h-5 w-5 sm:h-6 sm:w-6" />
                       </div>
                       <div className="min-w-0 flex-1">
                         <div className="flex items-center gap-2 mb-1">
@@ -303,7 +303,7 @@ export function Header() {
                       onClick={() => setMobileMenuOpen(false)}
                       className="px-3 py-2 rounded-md text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent flex items-center gap-2"
                     >
-                      <History className="h-4 w-4" />
+                      <History className="h-5 w-5" />
                       {t("contentHistory")}
                     </Link>
                     <Link
@@ -311,7 +311,7 @@ export function Header() {
                       onClick={() => setMobileMenuOpen(false)}
                       className="px-3 py-2 rounded-md text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent flex items-center gap-2"
                     >
-                      <CreditCard className="h-4 w-4" />
+                      <CreditCard className="h-5 w-5" />
                       {t("subscription")}
                     </Link>
                     <Button
@@ -319,7 +319,7 @@ export function Header() {
                       onClick={handleLogout}
                       className="justify-start text-red-600 hover:text-red-700"
                     >
-                      <LogOut className="h-4 w-4 mr-2" />
+                      <LogOut className="h-5 w-5 mr-2" />
                       {t("signOut")}
                     </Button>
                   </>
