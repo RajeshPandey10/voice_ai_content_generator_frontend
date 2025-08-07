@@ -37,6 +37,21 @@ export function ContentGenerationPage() {
       return;
     }
 
+    if (!generatedContent || generatedContent.trim().length < 5) {
+      toast.error("Content too short", {
+        description:
+          "The content must be at least 5 characters long to generate audio.",
+      });
+      return;
+    }
+
+    console.log("Generating audio for content:", {
+      contentLength: generatedContent.length,
+      contentPreview: generatedContent.substring(0, 100) + "...",
+      businessName: businessData.businessName,
+      language: selectedLanguage,
+    });
+
     setAudioLoading(true);
     setError("");
 
@@ -49,7 +64,7 @@ export function ContentGenerationPage() {
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
-          content: generatedContent,
+          content: generatedContent.trim(),
           language: selectedLanguage,
           businessName: businessData.businessName,
           contentType: "business_description",
@@ -58,8 +73,20 @@ export function ContentGenerationPage() {
 
       if (!response.ok) {
         const errorData = await response.json();
+        console.error("Audio generation error:", errorData);
+
+        // Show specific validation errors
+        if (errorData.details && Array.isArray(errorData.details)) {
+          const errorMessages = errorData.details
+            .map((detail) => detail.msg)
+            .join(", ");
+          throw new Error(errorMessages);
+        }
+
         throw new Error(
-          errorData.error || `HTTP error! status: ${response.status}`
+          errorData.message ||
+            errorData.error ||
+            `HTTP error! status: ${response.status}`
         );
       }
 

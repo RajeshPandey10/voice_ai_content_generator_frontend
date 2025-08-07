@@ -135,6 +135,19 @@ export function ContentChatPage() {
       return;
     }
 
+    if (!currentContent || currentContent.trim().length < 5) {
+      toast.error("Content too short", {
+        description:
+          "The content must be at least 5 characters long to generate audio.",
+      });
+      return;
+    }
+
+    console.log("Generating audio for current content:", {
+      contentLength: currentContent.length,
+      contentPreview: currentContent.substring(0, 100) + "...",
+    });
+
     setAudioLoading(true);
 
     try {
@@ -146,10 +159,30 @@ export function ContentChatPage() {
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
-          content: currentContent,
+          content: currentContent.trim(),
           language: "en", // You can make this dynamic
+          contentType: "business_description",
         }),
       });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error("Audio generation error:", errorData);
+
+        // Show specific validation errors
+        if (errorData.details && Array.isArray(errorData.details)) {
+          const errorMessages = errorData.details
+            .map((detail) => detail.msg)
+            .join(", ");
+          throw new Error(errorMessages);
+        }
+
+        throw new Error(
+          errorData.message ||
+            errorData.error ||
+            `HTTP error! status: ${response.status}`
+        );
+      }
 
       const data = await response.json();
 
@@ -161,7 +194,9 @@ export function ContentChatPage() {
       }
     } catch (error) {
       console.error("Audio generation error:", error);
-      toast.error("Failed to generate audio. Please try again.");
+      toast.error(
+        error.message || "Failed to generate audio. Please try again."
+      );
     } finally {
       setAudioLoading(false);
     }
