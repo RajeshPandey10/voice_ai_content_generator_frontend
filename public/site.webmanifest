@@ -1,0 +1,37 @@
+{
+  "name": "AI Content & Voice Generator",
+  "short_name": "VoiceAI",
+  "description": "Generate high-quality, SEO-optimized content and voiceovers with AI",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#1e3a8a",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/apple-touch-icon-180x180.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ],
+  "categories": ["productivity", "business", "utilities"],
+  "screenshots": [
+    {
+      "src": "/logo_voice_ai.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

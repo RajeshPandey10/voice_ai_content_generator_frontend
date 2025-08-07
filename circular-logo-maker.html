@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Make Logo Circular - Voice AI Generator</title>
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          sans-serif;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+      }
+      .container {
+        background: white;
+        border-radius: 20px;
+        padding: 30px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      }
+      .preview {
+        display: flex;
+        gap: 30px;
+        align-items: center;
+        justify-content: center;
+        margin: 30px 0;
+        flex-wrap: wrap;
+      }
+      .logo-preview {
+        text-align: center;
+      }
+      .logo-preview img {
+        max-width: 150px;
+        max-height: 150px;
+        border: 3px solid #ddd;
+        margin-bottom: 10px;
+      }
+      .original {
+        border-radius: 10px;
+      }
+      .circular {
+        border-radius: 50%;
+        object-fit: cover;
+        width: 150px;
+        height: 150px;
+      }
+      input[type="file"] {
+        margin: 20px 0;
+        padding: 10px;
+        border: 2px dashed #ddd;
+        border-radius: 10px;
+        width: 100%;
+        text-align: center;
+      }
+      .download-btn {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        padding: 15px 30px;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 16px;
+        margin: 10px;
+        display: none;
+      }
+      .download-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      }
+      .sizes {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        gap: 15px;
+        margin: 20px 0;
+      }
+      .size-preview {
+        text-align: center;
+        padding: 10px;
+        background: #f8f9fa;
+        border-radius: 10px;
+      }
+      .size-preview img {
+        border-radius: 50%;
+        object-fit: cover;
+        margin-bottom: 5px;
+      }
+      .instructions {
+        background: #e3f2fd;
+        padding: 20px;
+        border-radius: 10px;
+        margin: 20px 0;
+      }
+      h1 {
+        color: #333;
+        text-align: center;
+        margin-bottom: 30px;
+      }
+      h2 {
+        color: #555;
+        border-bottom: 2px solid #eee;
+        padding-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>🎨 Make Your Logo Circular</h1>
+
+      <div class="instructions">
+        <h2>📋 Instructions:</h2>
+        <ol>
+          <li>Upload your current logo PNG file below</li>
+          <li>Preview how it looks circular vs original</li>
+          <li>Download the circular version and different sizes</li>
+          <li>Replace the files in your project's public folder</li>
+        </ol>
+      </div>
+
+      <input type="file" id="fileInput" accept="image/*" />
+
+      <div class="preview">
+        <div class="logo-preview">
+          <h3>Original</h3>
+          <img
+            id="originalImg"
+            class="original"
+            src=""
+            alt="Original logo"
+            style="display: none"
+          />
+        </div>
+        <div class="logo-preview">
+          <h3>Circular</h3>
+          <img
+            id="circularImg"
+            class="circular"
+            src=""
+            alt="Circular logo"
+            style="display: none"
+          />
+        </div>
+      </div>
+
+      <div id="downloadSection" style="display: none">
+        <h2>📱 Download Different Sizes:</h2>
+        <div class="sizes" id="sizesContainer">
+          <!-- Size previews will be generated here -->
+        </div>
+        <div style="text-align: center">
+          <button class="download-btn" onclick="downloadOriginalCircular()">
+            Download Original Circular
+          </button>
+          <button class="download-btn" onclick="downloadAllSizes()">
+            Download All Icon Sizes
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      let originalCanvas, circularCanvas;
+      const iconSizes = [
+        16, 32, 48, 57, 60, 72, 76, 114, 120, 144, 152, 167, 180, 192, 512,
+      ];
+
+      document
+        .getElementById("fileInput")
+        .addEventListener("change", function (e) {
+          const file = e.target.files[0];
+          if (file) {
+            const reader = new FileReader();
+            reader.onload = function (event) {
+              const img = new Image();
+              img.onload = function () {
+                processImage(img);
+              };
+              img.src = event.target.result;
+            };
+            reader.readAsDataURL(file);
+          }
+        });
+
+      function processImage(img) {
+        // Show original
+        document.getElementById("originalImg").src = img.src;
+        document.getElementById("originalImg").style.display = "block";
+
+        // Create circular version
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+        const size = Math.max(img.width, img.height);
+
+        canvas.width = size;
+        canvas.height = size;
+
+        // Create circular clipping path
+        ctx.beginPath();
+        ctx.arc(size / 2, size / 2, size / 2, 0, Math.PI * 2);
+        ctx.closePath();
+        ctx.clip();
+
+        // Draw image centered
+        const offsetX = (size - img.width) / 2;
+        const offsetY = (size - img.height) / 2;
+        ctx.drawImage(img, offsetX, offsetY);
+
+        // Show circular preview
+        const circularImg = document.getElementById("circularImg");
+        circularImg.src = canvas.toDataURL();
+        circularImg.style.display = "block";
+
+        // Store canvases for download
+        originalCanvas = canvas;
+
+        // Generate size previews
+        generateSizePreviews(canvas);
+
+        // Show download section
+        document.getElementById("downloadSection").style.display = "block";
+        document
+          .querySelectorAll(".download-btn")
+          .forEach((btn) => (btn.style.display = "inline-block"));
+      }
+
+      function generateSizePreviews(sourceCanvas) {
+        const container = document.getElementById("sizesContainer");
+        container.innerHTML = "";
+
+        iconSizes.forEach((size) => {
+          const canvas = document.createElement("canvas");
+          const ctx = canvas.getContext("2d");
+          canvas.width = size;
+          canvas.height = size;
+
+          ctx.drawImage(sourceCanvas, 0, 0, size, size);
+
+          const preview = document.createElement("div");
+          preview.className = "size-preview";
+          preview.innerHTML = `
+                    <img src="${canvas.toDataURL()}" width="${Math.min(
+            size,
+            64
+          )}" height="${Math.min(size, 64)}" />
+                    <div>${size}x${size}</div>
+                    <button onclick="downloadSize(${size})" style="font-size: 12px; padding: 5px; margin-top: 5px; background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">Download</button>
+                `;
+          container.appendChild(preview);
+        });
+      }
+
+      function downloadOriginalCircular() {
+        if (originalCanvas) {
+          const link = document.createElement("a");
+          link.download = "logo-circular.png";
+          link.href = originalCanvas.toDataURL();
+          link.click();
+        }
+      }
+
+      function downloadSize(size) {
+        if (originalCanvas) {
+          const canvas = document.createElement("canvas");
+          const ctx = canvas.getContext("2d");
+          canvas.width = size;
+          canvas.height = size;
+          ctx.drawImage(originalCanvas, 0, 0, size, size);
+
+          const link = document.createElement("a");
+          if (size <= 48) {
+            link.download = `favicon-${size}x${size}.png`;
+          } else if (size <= 180) {
+            link.download = `apple-touch-icon-${size}x${size}.png`;
+          } else {
+            link.download = `android-chrome-${size}x${size}.png`;
+          }
+          link.href = canvas.toDataURL();
+          link.click();
+        }
+      }
+
+      function downloadAllSizes() {
+        if (originalCanvas) {
+          // Create a zip would be complex, so download one by one with delay
+          iconSizes.forEach((size, index) => {
+            setTimeout(() => downloadSize(size), index * 200);
+          });
+        }
+      }
+    </script>
+  </body>
+</html>

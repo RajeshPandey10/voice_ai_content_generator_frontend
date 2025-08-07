@@ -180,8 +180,12 @@ export function AuthForm({ onSuccess }) {
           className="w-full"
           type="button"
         >
-          <Chrome className="mr-2 h-4 w-4" />
-          Google
+          <img
+            src="/logo_voice_ai.png"
+            alt="Voice AI Logo"
+            className="mr-2 h-4 w-4 rounded-full object-cover"
+          />
+          Continue with Voice AI
         </Button>
 
         <div className="text-center text-sm">

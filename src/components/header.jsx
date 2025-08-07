@@ -83,8 +83,12 @@ export function Header() {
           to="/"
           className="flex items-center gap-2 sm:gap-3 hover:opacity-80 transition-opacity min-w-0 flex-shrink-0"
         >
-          <div className="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-purple-500 to-blue-600 rounded-lg flex-shrink-0">
-            <Bot className="h-4 w-4 sm:h-6 sm:w-6 text-white" />
+          <div className="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-full overflow-hidden flex-shrink-0 bg-gradient-to-br from-purple-500 to-blue-600 p-0.5">
+            <img
+              src="/logo_voice_ai.png"
+              alt="Voice AI Generator Logo"
+              className="w-full h-full rounded-full object-cover bg-white"
+            />
           </div>
           <div className="min-w-0 hidden xs:block">
             <h1 className="text-sm sm:text-xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent truncate">
@@ -130,7 +134,7 @@ export function Header() {
           {/* Theme Toggle */}
           <Button
             variant="ghost"
-            size="sm"
+            size="md"
             onClick={toggleTheme}
             className="h-8 w-8 sm:h-9 sm:w-9 flex-shrink-0"
             title={`Current theme: ${theme} - Click to switch`}
@@ -222,7 +226,7 @@ export function Header() {
             <SheetTrigger asChild>
               <Button
                 variant="ghost"
-                size="sm"
+                size="md"
                 className="lg:hidden h-8 w-8 sm:h-9 sm:w-9"
               >
                 <Menu className="h-4 w-4 sm:h-5 sm:w-5" />
@@ -230,7 +234,7 @@ export function Header() {
             </SheetTrigger>
             <SheetContent
               side="right"
-              className="w-[280px] sm:w-[300px] p-4 sm:p-6 bg-background border-border"
+              className="w-[280px] sm:w-[300px] p-4 sm:p-6  border-border"
             >
               <nav className="flex flex-col gap-4 mt-6 sm:mt-8">
                 {/* User info in mobile */}
