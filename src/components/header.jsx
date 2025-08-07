@@ -234,7 +234,7 @@ export function Header() {
             </SheetTrigger>
             <SheetContent
               side="right"
-              className="w-[280px] sm:w-[300px] p-4 sm:p-6  border-border"
+              className="w-[280px] sm:w-[300px] p-4 sm:p-6 bg-background text-foreground border-border"
             >
               <nav className="flex flex-col gap-4 mt-6 sm:mt-8">
                 {/* User info in mobile */}
