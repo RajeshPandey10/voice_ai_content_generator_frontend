@@ -152,6 +152,30 @@ body {
     border-bottom: 1px solid hsl(var(--border));
     box-shadow: 0 1px 3px 0 rgb(255 255 255 / 0.1), 0 1px 2px -1px rgb(255 255 255 / 0.1);
   }
+
+  /* Mobile sheet (menu) specific styles for proper theme switching */
+  .mobile-sheet-light {
+    background-color: white;
+    color: hsl(222.2 84% 4.9%);
+    border-color: hsl(214.3 31.8% 91.4%);
+  }
+
+  .mobile-sheet-dark {
+    background-color: hsl(222.2 84% 4.9%);
+    color: hsl(210 40% 98%);
+    border-color: hsl(217.2 32.6% 17.5%);
+  }
+
+  /* Ensure proper theme inheritance for sheet content */
+  .light [role="dialog"] {
+    background-color: white;
+    color: hsl(222.2 84% 4.9%);
+  }
+
+  .dark [role="dialog"] {
+    background-color: hsl(222.2 84% 4.9%);
+    color: hsl(210 40% 98%);
+  }
 }
 
 

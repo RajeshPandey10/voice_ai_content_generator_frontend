@@ -234,7 +234,11 @@ export function Header() {
             </SheetTrigger>
             <SheetContent
               side="right"
-              className="w-[280px] sm:w-[300px] p-4 sm:p-6 bg-background text-foreground border-border"
+              className={`w-[280px] sm:w-[300px] p-4 sm:p-6 ${
+                effectiveTheme === "dark"
+                  ? "bg-[hsl(222.2_84%_4.9%)] text-[hsl(210_40%_98%)] border-[hsl(217.2_32.6%_17.5%)]"
+                  : "bg-white text-[hsl(222.2_84%_4.9%)] border-[hsl(214.3_31.8%_91.4%)]"
+              }`}
             >
               <nav className="flex flex-col gap-4 mt-6 sm:mt-8">
                 {/* User info in mobile */}
