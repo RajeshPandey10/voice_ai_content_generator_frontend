@@ -101,7 +101,8 @@ export function HomePage() {
 
     try {
       const token = Cookies.get("accessToken");
-      const response = await fetch("http://localhost:3000/api/audio/generate", {
+      const apiUrl = import.meta.env.VITE_API_URL || "https://voice-ai-generator-backend.onrender.com";
+      const response = await fetch(`${apiUrl}/api/audio/generate`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

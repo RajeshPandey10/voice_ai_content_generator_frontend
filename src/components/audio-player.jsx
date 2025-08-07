@@ -27,7 +27,10 @@ export function AudioPlayer({ audioData, onDownload }) {
   const fullAudioUrl = audioUrl
     ? audioUrl.startsWith("http")
       ? audioUrl
-      : `${import.meta.env.VITE_API_URL || "http://localhost:3000"}${audioUrl}`
+      : `${
+          import.meta.env.VITE_API_URL ||
+          "https://voice-ai-generator-backend.onrender.com"
+        }${audioUrl}`
     : null;
 
   // Debug logging

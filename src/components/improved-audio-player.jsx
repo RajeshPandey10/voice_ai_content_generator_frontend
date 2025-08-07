@@ -30,7 +30,10 @@ export function ImprovedAudioPlayer({ audioData, language = "English" }) {
   const fullAudioUrl = audioUrl
     ? audioUrl.startsWith("http")
       ? audioUrl
-      : `http://localhost:3000${audioUrl}`
+      : `${
+          import.meta.env.VITE_API_URL ||
+          "https://voice-ai-generator-backend.onrender.com"
+        }${audioUrl}`
     : null;
 
   useEffect(() => {

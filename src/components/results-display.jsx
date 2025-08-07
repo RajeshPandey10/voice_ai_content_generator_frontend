@@ -65,9 +65,10 @@ export function ResultsDisplay({
       const link = document.createElement("a");
       const audioUrl = audioResult.url.startsWith("http")
         ? audioResult.url
-        : `${import.meta.env.VITE_API_URL || "http://localhost:3000"}${
-            audioResult.url
-          }`;
+        : `${
+            import.meta.env.VITE_API_URL ||
+            "https://voice-ai-generator-backend.onrender.com"
+          }${audioResult.url}`;
 
       link.href = audioUrl;
       link.download = `${businessName.replace(/\s+/g, "_")}_audio.mp3`;

@@ -82,7 +82,10 @@ export function ContentChatPage() {
 
     try {
       const token = Cookies.get("accessToken");
-      const response = await fetch("http://localhost:3000/api/content/modify", {
+      const apiUrl =
+        import.meta.env.VITE_API_URL ||
+        "https://voice-ai-generator-backend.onrender.com";
+      const response = await fetch(`${apiUrl}/api/content/modify`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -152,7 +155,10 @@ export function ContentChatPage() {
 
     try {
       const token = Cookies.get("accessToken");
-      const response = await fetch("http://localhost:3000/api/audio/generate", {
+      const apiUrl =
+        import.meta.env.VITE_API_URL ||
+        "https://voice-ai-generator-backend.onrender.com";
+      const response = await fetch(`${apiUrl}/api/audio/generate`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -205,7 +211,9 @@ export function ContentChatPage() {
   const handleDownloadAudio = () => {
     if (currentAudio?.audioFile) {
       const link = document.createElement("a");
-      link.href = `http://localhost:3000${currentAudio.audioFile}`;
+      const apiUrl = import.meta.env.VITE_API_URL || "https://voice-ai-generator-backend.onrender.com";
+      const audioUrl = currentAudio.audioFile.startsWith("http") ? currentAudio.audioFile : `${apiUrl}${currentAudio.audioFile}`;
+      link.href = audioUrl;
       link.download = `content-audio-${Date.now()}.mp3`;
       document.body.appendChild(link);
       link.click();
@@ -452,7 +460,11 @@ export function ContentChatPage() {
                         ref={audioRef}
                         controls
                         className="w-full"
-                        src={`http://localhost:3000${currentAudio.audioFile}`}
+                        src={
+                          currentAudio.audioFile?.startsWith("http") 
+                            ? currentAudio.audioFile 
+                            : `${import.meta.env.VITE_API_URL || "https://voice-ai-generator-backend.onrender.com"}${currentAudio.audioFile}`
+                        }
                       >
                         Your browser does not support the audio element.
                       </audio>

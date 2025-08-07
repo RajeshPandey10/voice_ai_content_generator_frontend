@@ -6,7 +6,7 @@ const API_BASE_URL =
   import.meta.env.VITE_API_URL ||
   (import.meta.env.DEV
     ? "http://localhost:3000"
-    : "https://your-backend-domain.com");
+    : "https://voice-ai-generator-backend.onrender.com");
 
 // Create axios instance
 const api = axios.create({

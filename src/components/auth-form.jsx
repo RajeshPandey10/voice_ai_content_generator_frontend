@@ -56,7 +56,10 @@ export function AuthForm({ onSuccess }) {
   };
 
   const handleGoogleLogin = () => {
-    window.location.href = "http://localhost:3000/auth/google";
+    const apiUrl =
+      import.meta.env.VITE_API_URL ||
+      "https://voice-ai-generator-backend.onrender.com";
+    window.location.href = `${apiUrl}/auth/google`;
   };
 
   return (

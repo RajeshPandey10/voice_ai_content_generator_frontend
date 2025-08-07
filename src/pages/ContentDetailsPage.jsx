@@ -117,7 +117,10 @@ export function ContentDetailsPage() {
 
     try {
       const token = Cookies.get("accessToken");
-      const response = await fetch("http://localhost:3000/api/audio/generate", {
+      const apiUrl =
+        import.meta.env.VITE_API_URL ||
+        "https://voice-ai-generator-backend.onrender.com";
+      const response = await fetch(`${apiUrl}/api/audio/generate`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -168,7 +171,13 @@ export function ContentDetailsPage() {
       audio.pause();
       setIsPlaying(false);
     } else {
-      const audioElement = new Audio(`http://localhost:3000${audioResult.url}`);
+      const apiUrl =
+        import.meta.env.VITE_API_URL ||
+        "https://voice-ai-generator-backend.onrender.com";
+      const audioUrl = audioResult.url.startsWith("http")
+        ? audioResult.url
+        : `${apiUrl}${audioResult.url}`;
+      const audioElement = new Audio(audioUrl);
       audioElement.play();
       setAudio(audioElement);
       setIsPlaying(true);
@@ -210,7 +219,13 @@ export function ContentDetailsPage() {
   const handleDownloadAudio = () => {
     if (audioResult?.url) {
       const a = document.createElement("a");
-      a.href = `http://localhost:3000${audioResult.url}`;
+      const apiUrl =
+        import.meta.env.VITE_API_URL ||
+        "https://voice-ai-generator-backend.onrender.com";
+      const audioUrl = audioResult.url.startsWith("http")
+        ? audioResult.url
+        : `${apiUrl}${audioResult.url}`;
+      a.href = audioUrl;
       a.download = audioResult.filename || "audio.mp3";
       document.body.appendChild(a);
       a.click();
