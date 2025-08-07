@@ -56,10 +56,28 @@ export function AuthForm({ onSuccess }) {
   };
 
   const handleGoogleLogin = () => {
-    const apiUrl =
-      import.meta.env.VITE_API_URL ||
-      "https://voice-ai-generator-backend.onrender.com";
-    window.location.href = `${apiUrl}/auth/google`;
+    const envApiUrl = import.meta.env.VITE_API_URL;
+    const fallbackUrl = "https://voice-ai-generator-backend.onrender.com";
+    const apiUrl = envApiUrl || fallbackUrl;
+    const googleAuthUrl = `${apiUrl}/auth/google`;
+
+    console.log("🔍 Debug Info:");
+    console.log("Environment VITE_API_URL:", envApiUrl);
+    console.log("Fallback URL:", fallbackUrl);
+    console.log("Final API URL:", apiUrl);
+    console.log("Google Auth URL:", googleAuthUrl);
+
+    // Double check we're not using localhost
+    if (googleAuthUrl.includes("localhost")) {
+      console.error("❌ ERROR: Still using localhost URL!");
+      alert(
+        "Configuration Error: Still using localhost. Please restart the development server."
+      );
+      return;
+    }
+
+    console.log("✅ Redirecting to production backend");
+    window.location.href = googleAuthUrl;
   };
 
   return (
