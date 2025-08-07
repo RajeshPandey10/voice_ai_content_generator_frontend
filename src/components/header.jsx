@@ -75,6 +75,11 @@ export function Header() {
     setMobileMenuOpen(false);
   };
 
+  const handleThemeToggle = () => {
+    toggleTheme();
+    // Don't close mobile menu when toggling theme
+  };
+
   return (
     <header className="sticky top-0 z-50 w-full header-solid shadow-sm">
       <div className="container flex h-14 sm:h-16 max-w-7xl items-center justify-between px-3 sm:px-4 mx-auto">
@@ -127,7 +132,7 @@ export function Header() {
           )}
 
           {/* Language Selector */}
-          <div className="hidden sm:block">
+          <div className="hidden lg:block">
             <LanguageSelector />
           </div>
 
@@ -241,6 +246,40 @@ export function Header() {
               }`}
             >
               <nav className="flex flex-col gap-4 mt-6 sm:mt-8">
+                {/* Mobile-only controls */}
+                <div className="pb-4 border-b space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm font-medium text-muted-foreground">
+                      {t("language")}
+                    </span>
+                    <LanguageSelector variant="outline" size="sm" />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm font-medium text-muted-foreground">
+                      {t("theme")}
+                    </span>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={handleThemeToggle}
+                      className="h-9 w-16 flex-shrink-0 text-xs"
+                      title={`Current theme: ${theme} - Click to switch`}
+                    >
+                      {effectiveTheme === "dark" ? (
+                        <>
+                          <Sun className="h-4 w-4 mr-1" />
+                          Light
+                        </>
+                      ) : (
+                        <>
+                          <Moon className="h-4 w-4 mr-1" />
+                          Dark
+                        </>
+                      )}
+                    </Button>
+                  </div>
+                </div>
+
                 {/* User info in mobile */}
                 {user && (
                   <div className="pb-4 border-b">

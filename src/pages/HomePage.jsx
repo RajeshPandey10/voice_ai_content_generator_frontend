@@ -124,10 +124,10 @@ export function HomePage() {
             {t("voiceScriptsGenerator") || "AI-Powered Content Generation"}
           </h1>
         </div>
-        <p className="text-base sm:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto mb-6 sm:mb-8 px-2">
+        {/* <p className="text-base sm:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto mb-6 sm:mb-8 px-2">
           {t("generateVoiceOptimized") ||
             "Generate voice search optimized business descriptions and FAQs tailored for Nepali small and medium enterprises"}
-        </p>
+        </p> */}
 
         {/* Features Grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-4xl mx-auto mb-8 sm:mb-12">

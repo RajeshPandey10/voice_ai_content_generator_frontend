@@ -27,9 +27,7 @@ export function LanguageSelector({ variant = "ghost", size = "sm" }) {
           title={t("language")}
         >
           <Languages className="h-4 w-4" />
-          <span className="hidden sm:inline text-sm">
-            {currentLang?.nativeName}
-          </span>
+          <span className="text-sm">{currentLang?.nativeName}</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-36">

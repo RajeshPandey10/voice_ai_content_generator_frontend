@@ -25,6 +25,8 @@ const translations = {
     subscription: "Subscription",
     upgrade: "Upgrade",
     forNepaliSMEs: "For Nepali SMEs",
+    language: "Language",
+    theme: "Theme",
 
     // Content Generation
     generateVoiceOptimized:
@@ -150,6 +152,8 @@ const translations = {
     subscription: "सदस्यता",
     upgrade: "अपग्रेड",
     forNepaliSMEs: "नेपाली साना तथा मझौला उद्यमका लागि",
+    language: "भाषा",
+    theme: "थिम",
 
     // Content Generation
     generateVoiceOptimized:
