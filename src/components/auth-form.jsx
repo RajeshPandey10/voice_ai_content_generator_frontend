@@ -10,8 +10,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/AuthContext";
-import { getApiUrl } from "@/utils/apiUrl";
-import { toast } from "sonner";
 import { Eye, EyeOff, Mail, Lock, User, Chrome } from "lucide-react";
 
 export function AuthForm({ onSuccess }) {
@@ -58,20 +56,10 @@ export function AuthForm({ onSuccess }) {
   };
 
   const handleGoogleLogin = () => {
-    const apiUrl = getApiUrl();
-    const googleAuthUrl = `${apiUrl}/auth/google`;
-
-    console.log("� Google Auth URL:", googleAuthUrl);
-
-    // Safety check - ensure no localhost in production
-    if (googleAuthUrl.includes("localhost") && import.meta.env.PROD) {
-      console.error("❌ CRITICAL: Localhost URL in production!");
-      toast.error("Configuration Error: Invalid URL configuration detected.");
-      return;
-    }
-
-    console.log("✅ Redirecting to backend auth");
-    window.location.href = googleAuthUrl;
+    const apiUrl =
+      import.meta.env.VITE_API_URL ||
+      "https://voice-ai-generator-backend.onrender.com";
+    window.location.href = `${apiUrl}/auth/google`;
   };
 
   return (
@@ -180,12 +168,8 @@ export function AuthForm({ onSuccess }) {
           className="w-full"
           type="button"
         >
-          <img
-            src="/logo_voice_ai.png"
-            alt="Voice AI Logo"
-            className="mr-2 h-4 w-4 rounded-full object-cover"
-          />
-          Continue with Voice AI
+          <Chrome className="mr-2 h-4 w-4" />
+          Google
         </Button>
 
         <div className="text-center text-sm">
