@@ -211,8 +211,12 @@ export function ContentChatPage() {
   const handleDownloadAudio = () => {
     if (currentAudio?.audioFile) {
       const link = document.createElement("a");
-      const apiUrl = import.meta.env.VITE_API_URL || "https://voice-ai-generator-backend.onrender.com";
-      const audioUrl = currentAudio.audioFile.startsWith("http") ? currentAudio.audioFile : `${apiUrl}${currentAudio.audioFile}`;
+      const apiUrl =
+        import.meta.env.VITE_API_URL ||
+        "https://voice-ai-generator-backend.onrender.com";
+      const audioUrl = currentAudio.audioFile.startsWith("http")
+        ? currentAudio.audioFile
+        : `${apiUrl}${currentAudio.audioFile}`;
       link.href = audioUrl;
       link.download = `content-audio-${Date.now()}.mp3`;
       document.body.appendChild(link);
@@ -461,9 +465,12 @@ export function ContentChatPage() {
                         controls
                         className="w-full"
                         src={
-                          currentAudio.audioFile?.startsWith("http") 
-                            ? currentAudio.audioFile 
-                            : `${import.meta.env.VITE_API_URL || "https://voice-ai-generator-backend.onrender.com"}${currentAudio.audioFile}`
+                          currentAudio.audioFile?.startsWith("http")
+                            ? currentAudio.audioFile
+                            : `${
+                                import.meta.env.VITE_API_URL ||
+                                "https://voice-ai-generator-backend.onrender.com"
+                              }${currentAudio.audioFile}`
                         }
                       >
                         Your browser does not support the audio element.

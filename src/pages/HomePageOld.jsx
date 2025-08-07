@@ -101,7 +101,9 @@ export function HomePage() {
 
     try {
       const token = Cookies.get("accessToken");
-      const apiUrl = import.meta.env.VITE_API_URL || "https://voice-ai-generator-backend.onrender.com";
+      const apiUrl =
+        import.meta.env.VITE_API_URL ||
+        "https://voice-ai-generator-backend.onrender.com";
       const response = await fetch(`${apiUrl}/api/audio/generate`, {
         method: "POST",
         headers: {
