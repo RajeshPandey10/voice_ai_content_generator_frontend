@@ -81,8 +81,8 @@ export function Header() {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full header-solid shadow-sm">
-      <div className="container flex h-14 sm:h-16 max-w-7xl items-center justify-between px-3 sm:px-4 mx-auto">
+    <header className="sticky top-0 z-40 w-full header-solid shadow-sm">
+      <div className="container flex h-14 sm:h-16 max-w-7xl items-center justify-between px-3 sm:px-4 mx-auto relative">
         {/* Logo */}
         <Link
           to="/"
@@ -153,73 +153,88 @@ export function Header() {
 
           {/* User Menu or Sign In */}
           {user ? (
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button
-                  variant="ghost"
-                  className="flex items-center gap-1 sm:gap-2 h-8 sm:h-10 px-2 sm:px-3"
-                >
-                  <div className="flex items-center justify-center w-6 h-6 sm:w-8 sm:h-8 bg-primary/10 rounded-full">
-                    <User className="h-4 w-4 sm:h-5 sm:w-5" />
-                  </div>
-                  <div className="hidden md:flex flex-col items-start">
-                    <div className="flex items-center gap-2">
-                      <span className="text-sm font-medium truncate max-w-24">
-                        {user.name || user.email}
-                      </span>
-                      {getDeveloperBadge()}
+            <div className="relative">
+              <DropdownMenu modal={false}>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    className="flex items-center gap-1 sm:gap-2 h-8 sm:h-10 px-2 sm:px-3 hover:bg-accent/50 transition-all duration-200"
+                  >
+                    <div className="flex items-center justify-center w-6 h-6 sm:w-8 sm:h-8 bg-gradient-to-br from-purple-100 to-blue-100 dark:from-purple-800/30 dark:to-blue-800/30 rounded-full">
+                      <User className="h-4 w-4 sm:h-5 sm:w-5 text-purple-600 dark:text-purple-300" />
                     </div>
-                    {user.subscription?.plan && !isDeveloper(user) && (
-                      <Badge
-                        variant="outline"
-                        className={`text-xs ${getPlanBadgeColor(
-                          user.subscription.plan
-                        )}`}
-                      >
-                        {user.subscription.plan.replace("_", " ").toUpperCase()}
-                      </Badge>
-                    )}
-                    {isDeveloper(user) && (
-                      <Badge
-                        variant="outline"
-                        className="text-xs bg-gradient-to-r from-purple-100 to-orange-100 text-purple-800 dark:from-purple-900 dark:to-orange-900 dark:text-purple-300"
-                      >
-                        UNLIMITED ACCESS
-                      </Badge>
-                    )}
-                  </div>
-                  <ChevronDown className="h-4 w-4 hidden sm:block" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-56">
-                <DropdownMenuItem asChild>
-                  <Link to="/history" className="flex items-center gap-2">
-                    <History className="h-4 w-4" />
-                    {t("contentHistory")}
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link to="/pricing" className="flex items-center gap-2">
-                    <CreditCard className="h-4 w-4" />
-                    {t("subscription")}
-                    {user.subscription?.plan === "free" && (
-                      <Badge variant="outline" className="ml-auto">
-                        <Sparkles className="h-3 w-3 mr-1" />
-                        {t("upgrade")}
-                      </Badge>
-                    )}
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem
-                  onClick={handleLogout}
-                  className="text-red-600"
+                    <div className="hidden md:flex flex-col items-start">
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm font-medium truncate max-w-24">
+                          {user.name || user.email}
+                        </span>
+                        {getDeveloperBadge()}
+                      </div>
+                      {user.subscription?.plan && !isDeveloper(user) && (
+                        <Badge
+                          variant="outline"
+                          className={`text-xs ${getPlanBadgeColor(
+                            user.subscription.plan
+                          )}`}
+                        >
+                          {user.subscription.plan
+                            .replace("_", " ")
+                            .toUpperCase()}
+                        </Badge>
+                      )}
+                      {isDeveloper(user) && (
+                        <Badge
+                          variant="outline"
+                          className="text-xs bg-gradient-to-r from-purple-100 to-orange-100 text-purple-800 dark:from-purple-900 dark:to-orange-900 dark:text-purple-300"
+                        >
+                          UNLIMITED ACCESS
+                        </Badge>
+                      )}
+                    </div>
+                    <ChevronDown className="h-4 w-4 hidden sm:block" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent
+                  align="end"
+                  sideOffset={8}
+                  className="w-60 bg-background/98 backdrop-blur-lg border border-border/80 shadow-2xl z-[100] rounded-lg p-1"
+                  style={{ zIndex: 100 }}
                 >
-                  <LogOut className="h-4 w-4 mr-2" />
-                  {t("signOut")}
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+                  <DropdownMenuItem asChild>
+                    <Link
+                      to="/history"
+                      className="flex items-center gap-2 px-3 py-2 rounded-md hover:bg-accent transition-colors"
+                    >
+                      <History className="h-4 w-4" />
+                      {t("contentHistory")}
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link
+                      to="/pricing"
+                      className="flex items-center gap-2 px-3 py-2 rounded-md hover:bg-accent transition-colors"
+                    >
+                      <CreditCard className="h-4 w-4" />
+                      {t("subscription")}
+                      {user.subscription?.plan === "free" && (
+                        <Badge variant="outline" className="ml-auto">
+                          <Sparkles className="h-3 w-3 mr-1" />
+                          {t("upgrade")}
+                        </Badge>
+                      )}
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator className="my-1" />
+                  <DropdownMenuItem
+                    onClick={handleLogout}
+                    className="text-red-600 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-950/20 px-3 py-2 rounded-md transition-colors"
+                  >
+                    <LogOut className="h-4 w-4 mr-2" />
+                    {t("signOut")}
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
           ) : (
             <Button asChild>
               <Link to="/auth">{t("signIn")}</Link>
@@ -284,8 +299,8 @@ export function Header() {
                 {user && (
                   <div className="pb-4 border-b">
                     <div className="flex items-center gap-3 mb-3">
-                      <div className="flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 bg-primary/10 rounded-full">
-                        <User className="h-5 w-5 sm:h-6 sm:w-6" />
+                      <div className="flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-purple-100 to-blue-100 dark:from-purple-800/30 dark:to-blue-800/30 rounded-full">
+                        <User className="h-5 w-5 sm:h-6 sm:w-6 text-purple-600 dark:text-purple-300" />
                       </div>
                       <div className="min-w-0 flex-1">
                         <div className="flex items-center gap-2 mb-1">

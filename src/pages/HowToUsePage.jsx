@@ -203,7 +203,7 @@ export function HowToUsePage() {
       </Card>
 
       {/* Call to Action */}
-      <Card className="text-center bg-gradient-to-r from-purple-50 to-indigo-50 dark:from-purple-950 dark:to-indigo-950">
+      <Card className="text-center">
         <CardContent className="py-8">
           <h3 className="text-2xl font-bold mb-4">Ready to Get Started?</h3>
           <p className="text-muted-foreground mb-6">
